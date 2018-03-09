@@ -1,18 +1,28 @@
 function Application(props) {
   return(
+  	// .scoreboard
     <div className="scoreboard">
+    	// .header
         <div className="header">
             <h1>{props.title}</h1>
         </div>
+        // .players
         <div className="players">
+        	// .player
             <div className="player">
+            	// .player-name
                 <div className="player-name">
                     Franciscus Agnew
                 </div>
+                // .player-score
                 <div className="player-score">
+                	// .counter
                     <div className="counter">
+                    	// .counter-action .decrement
                         <button className="counter-action decrement"> - </button>
+                        // .counter-score
                         <div className="counter-score"> 31 </div>
+                        // .counter-action .increment
                         <button className="counter-action increment"> + </button>
                     </div>
                 </div>
@@ -35,7 +45,5 @@ Application.defaultProps = {
 };
 
 let target = document.getElementById('container');
-
-// ReactDOM.render(<h1>Hello, World!</h1>, target);
 
 ReactDOM.render(<Application/>, target);
