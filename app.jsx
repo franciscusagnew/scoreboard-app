@@ -22,8 +22,20 @@ function Application(props) {
   );
 }
 
+// Create property type(s)
+Application.propTypes = {
+	title: React.PropTypes.string,
+	// Use isRequired function to check if property exists during runtime
+	// title: React.PropTypes.string.isRequired,
+};
+
+// Define a default property type
+Application.defaultProps = {
+	title: "Game Scoreboard",
+};
+
 let target = document.getElementById('container');
 
 // ReactDOM.render(<h1>Hello, World!</h1>, target);
 
-ReactDOM.render(<Application title="Game Scoreboard"/>, target);
+ReactDOM.render(<Application/>, target);
