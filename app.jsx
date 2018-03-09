@@ -1,3 +1,12 @@
+function App() {
+	return (
+		<div>
+			<h1>Hello from React</h1>
+			<p>This is rendered from the App component.</p>
+		</div>
+	);
+}
+
 ReactDOM.render(
-	<h1>Hello!</h1>, document.getElementById('container')
+	<App />, document.getElementById('container')
 );
