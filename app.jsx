@@ -1,3 +1,22 @@
+// Declare an array of Players
+var PLAYERS = [
+	{
+		name: "Franciscus Agnew",
+		score: 12,
+		id: 1,
+	},
+	{
+		name: "Steve Jobs",
+		score: 99,
+		id: 2,
+	},
+	{
+		name: "Elon Musk",
+		score: 60,
+		id: 3,
+	},
+]
+
 // Add a Header component
 function Header(props) {
 	return(
@@ -55,7 +74,11 @@ function Application(props) {
     <div className="scoreboard">
         <Header title={props.title} />
         <div className="players">
-            <Player name="Franciscus Agnew" score={12} />
+            {
+	    		props.players.map(function(player) {
+	    			return <Player name={player.name} score={player.score} key={player.id} />
+	    		})
+	    	}
         </div>
     </div>
   );
@@ -63,9 +86,14 @@ function Application(props) {
 
 // Create property type(s)
 Application.propTypes = {
-	title: React.PropTypes.string,
 	// Use isRequired function to check if property exists during runtime
 	// title: React.PropTypes.string.isRequired,
+	title: React.PropTypes.string,
+	players: React.PropTypes.arrayOf(React.PropTypes.shape({
+		name: React.PropTypes.string.isRequired,
+		score: React.PropTypes.number.isRequired,
+		id: React.PropTypes.number.isRequired,
+	})).isRequired,
 };
 
 // Define a default property type
@@ -75,4 +103,4 @@ Application.defaultProps = {
 
 let target = document.getElementById('container');
 
-ReactDOM.render(<Application/>, target);
+ReactDOM.render(<Application players={PLAYERS}/>, target);
