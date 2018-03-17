@@ -120,6 +120,7 @@ function Player(props) {
 	return(
 		<div className="player">
 	    <div className="player-name">
+	    	<a className="remove-player" onClick={props.onRemove}>x</a>
 	    	{props.name}
 	    </div>
 	    <div className="player-score">
@@ -135,6 +136,7 @@ Player.propTypes = {
 	name: React.PropTypes.string.isRequired,
 	score: React.PropTypes.number.isRequired,
 	onScoreChange: React.PropTypes.func.isRequired,
+	onRemove: React.PropTypes.func.isRequired,
 };
 
 // Define Application component class
@@ -185,6 +187,14 @@ var Application = React.createClass({
 		nextId += 1;
 	},
 
+	onRemovePlayer: function(index) {
+		// Test onRemovePlayer
+		// console.log('remove', index);
+		// remove one player
+		this.state.players.splice(index, 1);
+		this.setState(this.state);
+	},
+
 	// Render the Application component
 	render: function() {
 		return (
@@ -196,6 +206,7 @@ var Application = React.createClass({
     				return (
     					<Player 
     					onScoreChange={function(delta) {this.onScoreChange(index, delta)}.bind(this)}
+    					onRemove={function() {this.onRemovePlayer(index)}.bind(this)}
     					name={player.name} 
     					score={player.score} 
     					key={player.id} />
