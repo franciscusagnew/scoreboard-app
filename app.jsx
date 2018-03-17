@@ -17,12 +17,36 @@ var PLAYERS = [
 	},
 ];
 
+var nextId = 4;
+
 var AddPlayerForm = React.createClass({
+	propTypes: {
+		onAdd: React.PropTypes.func.isRequired,
+	},
+
+	getInitialState: function() {
+		return {
+			name: "",
+		};
+	},
+
+	onNameChange: function(e) {
+		console.log('onNameChange', e.target.value);
+		this.setState({name: e.target.value});
+	},
+
+	onSubmit: function(e) {
+		e.preventDefault();
+
+		this.props.onAdd(this.state.name);
+		this.setState({name: ""});
+	},
+
 	render: function() {
 		return (
 			<div className="add-player-form">
-				<form>
-					<input type="text" />
+				<form onSubmit={this.onSubmit}>
+					<input type="text" value={this.state.name} onChange={this.onNameChange}/>
 					<input type="submit" value="Add Player" />
 				</form>
 			</div>
@@ -140,11 +164,25 @@ var Application = React.createClass({
 		};
 	},
 
+	// Change the score
 	onScoreChange: function(index, delta) {
 		// Test onScoreChange
 		// console.log('onScoreChange', index, delta);
 		this.state.players[index].score += delta;
 		this.setState(this.state);
+	},
+
+	// Define a new player
+	onPlayerAdd: function(name) {
+		// Test onPlayerAdd
+		// console.log("Player added:", name);	
+		this.state.players.push({
+				name: name,
+				score: 0,
+				id: nextId,
+		});
+		this.setState(this.state);
+		nextId += 1;
 	},
 
 	// Render the Application component
@@ -164,7 +202,7 @@ var Application = React.createClass({
     				);
     			}.bind(this))}
 	      </div>
-	      <AddPlayerForm />
+	      <AddPlayerForm onAdd={this.onPlayerAdd}/>
 	    </div>
 		);
 	}
