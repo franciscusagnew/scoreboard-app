@@ -61,8 +61,8 @@ body {
 }
 
   .stopwatch-time {
-    font-family: monospace;
-    font-size: 2em;
+/*    font-family: monospace;*/
+    font-size: 1.5em;
   }
 
   .stopwatch button {
@@ -160,9 +160,9 @@ body {
     background: #2b2b2b;
     color: #FAFAFA;
     text-align: center;
-    font-family: monospace;
+/*    font-family: monospace;*/
     padding: 10px;
-    font-size: 2em;
+    font-size: 1.5em;
   }
 
 
