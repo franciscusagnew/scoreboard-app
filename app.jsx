@@ -21,13 +21,46 @@ var nextId = 4;
 
 // Define Stopwatch component class
 var Stopwatch = React.createClass({
+	getInitialState: function() {
+		return {
+			running: false,
+		}
+	},
+
+	onStart: function() {
+		this.setState({ running: true });
+	},
+
+	onStop: function() {
+		this.setState({ running: false });
+	},
+
+	onRest: function() {
+		
+	},
+
 	render: function() {
+		// Several ways to implement startStop
+		/* var startStop;
+		if (this.state.running) {
+			startStop = <button>Stop</button>;
+		} else {
+			startStop = <button>Start</button>;
+		}*/
+
+		// As a ternary condition
+		// var startStop = this.state.running ? <button>Stop</button> : <button>Start</button>;
+
 		return (
 			<div className="stopwatch">
 				<h2>Stopwatch</h2>
 				<div className="stopwatch-time">0</div>
-				<button>Start</button>
-				<button>Reset</button>
+				{
+					this.state.running ? 
+					<button onClick={this.onStop}>Stop</button> : 
+					<button onClick={this.onStart}>Start</button> 
+				}
+				<button onClick={this.onReset}>Reset</button>
 			</div>
 		);
 	}
