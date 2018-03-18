@@ -21,22 +21,57 @@ var nextId = 4;
 
 // Define Stopwatch component class
 var Stopwatch = React.createClass({
+
+	// Get initial state of Stopwatch component
 	getInitialState: function() {
 		return {
 			running: false,
+			elapsedTime: 0,
+			previousTime: 0,
 		}
 	},
 
-	onStart: function() {
-		this.setState({ running: true });
+	componentDidMount: function() {
+		this.interval = setInterval(this.onTick, 100);
 	},
 
+	componentWillUnmount: function() {
+		clearInterval(this.interval);
+	},
+
+	// Time ticker function
+	onTick: function() {
+		if (this.state.running) {
+			var now = Date.now();
+			this.setState({
+				previousTime: now,
+				elapsedTime: this.state.elapsedTime + (now - this.state.previousTime),
+			});
+		}
+		// Test onTick
+		console.log('onTick');
+	},
+
+	// Start timer function
+	onStart: function() {
+		this.setState({ 
+			running: true,
+			previousTime: Date.now(),
+		});
+
+	},
+
+	// Stop timer function
 	onStop: function() {
 		this.setState({ running: false });
 	},
 
-	onRest: function() {
-		
+	// Reset timer function
+	onReset: function() {
+		this.setState({
+			elapsedTime: 0,
+			previousTime: Date.now(),
+		});
 	},
 
 	render: function() {
@@ -51,10 +86,12 @@ var Stopwatch = React.createClass({
 		// As a ternary condition
 		// var startStop = this.state.running ? <button>Stop</button> : <button>Start</button>;
 
+		var seconds = Math.floor(this.state.elapsedTime / 1000);
+
 		return (
 			<div className="stopwatch">
 				<h2>Stopwatch</h2>
-				<div className="stopwatch-time">0</div>
+				<div className="stopwatch-time">{seconds}</div>
 				{
 					this.state.running ? 
 					<button onClick={this.onStop}>Stop</button> : 
@@ -72,17 +109,20 @@ var AddPlayerForm = React.createClass({
 		onAdd: React.PropTypes.func.isRequired,
 	},
 
+	// Get initial state of AddPlayerForm component
 	getInitialState: function() {
 		return {
 			name: "",
 		};
 	},
 
+	// onNaneChange function
 	onNameChange: function(e) {
 		console.log('onNameChange', e.target.value);
 		this.setState({name: e.target.value});
 	},
 
+	// onSubmit function
 	onSubmit: function(e) {
 		e.preventDefault();
 
