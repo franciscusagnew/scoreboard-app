@@ -2,17 +2,17 @@
 var PLAYERS = [
 	{
 		name: "Franciscus Agnew",
-		score: 12,
+		score: 0,
 		id: 1,
 	},
 	{
 		name: "Steve Jobs",
-		score: 99,
+		score: 0,
 		id: 2,
 	},
 	{
 		name: "Elon Musk",
-		score: 60,
+		score: 0,
 		id: 3,
 	},
 ];
@@ -134,7 +134,7 @@ var AddPlayerForm = React.createClass({
 		return (
 			<div className="add-player-form">
 				<form onSubmit={this.onSubmit}>
-					<input type="text" value={this.state.name} onChange={this.onNameChange}/>
+					<input type="text" placeholder="Enter Player's Name" value={this.state.name} onChange={this.onNameChange}/>
 					<input type="submit" value="Add Player" />
 				</form>
 			</div>
